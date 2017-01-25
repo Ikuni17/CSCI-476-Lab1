@@ -8,7 +8,7 @@ public class Main {
 
     static List<String> lines = new ArrayList<>();
     static String dumpPath = "memorydump.dmp";
-    static List<CCinfo> foundCCinfo = new ArrayList<>();
+    static List<Track1Info> foundTrack1Info = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
         try {
@@ -32,6 +32,9 @@ public class Main {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+        foundTrack1Info.add(new Track1Info("Brad", "123445678","09/2019", 1999, 378));
+        foundTrack1Info.get(0).printTrack1Info();
     }
 }
 
