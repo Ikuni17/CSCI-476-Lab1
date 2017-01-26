@@ -25,7 +25,7 @@ public class Track1Info {
     }
 
     public void printTrack1Info() {
-        System.out.printf("Cardholder's Name: %s%nCard Number: %s%nExpiration Date: %s%nService Code: %s%n", name, ccNumber, expDate, serviceCode);
+        System.out.printf("Cardholder's Name: %s%nCard Number: %s%nExpiration Date: %s%nService Code: %s%n%n", name, ccNumber, expDate, serviceCode);
     }
 
 }
