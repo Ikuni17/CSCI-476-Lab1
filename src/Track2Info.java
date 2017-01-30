@@ -1,5 +1,9 @@
 public class Track2Info {
-    String ccNumber, expDate, serviceCode, pin, cvvNumber;
+    String ccNumber;
+    String expDate;
+    String serviceCode;
+    String pin;
+    String cvvNumber;
 
     Track2Info(String ccNumber, String expDate, String serviceCode, String pin, String cvvNumber) {
         this.ccNumber = ccNumber;
@@ -19,6 +23,14 @@ public class Track2Info {
 
     public String getServiceCode() {
         return serviceCode;
+    }
+
+    public String getPin() {
+        return pin;
+    }
+
+    public String getCvvNumber() {
+        return cvvNumber;
     }
 
     public void printTrack2Info() {
