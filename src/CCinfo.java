@@ -4,7 +4,7 @@ CSCI 476: Lab 1
 January 30, 2017
 */
 
-public class CCinfo {
+/*public class CCinfo {
     String name, ccNumber, expDate, serviceCode, pin, cvvNumber;
 
     CCinfo(String name, String ccNumber, String expDate, String serviceCode, String pin, String cvvNumber) {
@@ -19,4 +19,4 @@ public class CCinfo {
     public void printCCinfo() {
         System.out.printf("Cardholder's Name: %s%nCard Number: %s%nExpiration Date: %s%nService Code: %s%nEncrypted Pin: %s%nCVV Number: %s%n%n", name, ccNumber, expDate, serviceCode, pin, cvvNumber);
     }
-}
+}*/

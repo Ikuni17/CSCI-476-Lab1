@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class Main {
 
     // Assume the memory dump file is in the same directory as this main file
-    static String dumpPath = "memorydump.dmp";
+    static String dumpPath = "./memorydump.dmp";
     static List<CCinfo> foundCCInfo = new ArrayList<>();
     static List<Track1Info> foundTrack1Info = new ArrayList<>();
     static List<Track2Info> foundTrack2Info = new ArrayList<>();
@@ -133,5 +133,23 @@ public class Main {
             default:
                 return i + sufixes[i % 10];
         }
+    }
+}
+
+// Class to save Credit Card info
+class CCinfo {
+    String name, ccNumber, expDate, serviceCode, pin, cvvNumber;
+
+    CCinfo(String name, String ccNumber, String expDate, String serviceCode, String pin, String cvvNumber) {
+        this.name = name;
+        this.ccNumber = ccNumber;
+        this.expDate = expDate;
+        this.serviceCode = serviceCode;
+        this.pin = pin;
+        this.cvvNumber = cvvNumber;
+    }
+
+    public void printCCinfo() {
+        System.out.printf("Cardholder's Name: %s%nCard Number: %s%nExpiration Date: %s%nService Code: %s%nEncrypted Pin: %s%nCVV Number: %s%n%n", name, ccNumber, expDate, serviceCode, pin, cvvNumber);
     }
 }
