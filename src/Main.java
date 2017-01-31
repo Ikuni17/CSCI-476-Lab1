@@ -10,6 +10,8 @@ public class Main {
     static List<CCinfo> foundCCInfo = new ArrayList<>();
     static List<Track1Info> foundTrack1Info = new ArrayList<>();
     static List<Track2Info> foundTrack2Info = new ArrayList<>();
+    static Pattern fullPattern = Pattern.compile("%[A-Z]\\d{13,19}\\^{1}\\w{1,26}\\/\\w{1,26}\\^{1}\\d{7,}\\?;\\d{13,19}={1}\\d{14,}\\?");
+    static Matcher fullMatcher;
     // Regular expression to match track 1 data, example: %B1234567890123^Brad/White^1705123?
     static Pattern track1Pattern = Pattern.compile("%[A-Z]\\d{13,19}\\^{1}\\w{1,26}\\/\\w{1,26}\\^{1}\\d{7,}\\?");
     static Matcher track1Matcher;
@@ -26,11 +28,31 @@ public class Main {
 
             // Read each line until end of file
             while ((str = in.readLine()) != null) {
-                // Pass the line that into a matcher for each track
-                track1Matcher = track1Pattern.matcher(str);
-                track2Matcher = track2Pattern.matcher(str);
+                // Pass a line into the matcher to parse
+                fullMatcher = fullPattern.matcher(str);
+                //track1Matcher = track1Pattern.matcher(str);
+                //track2Matcher = track2Pattern.matcher(str);
+                // Check if the matcher found a string that satisfies the regex
+                if(fullMatcher.find()){
+                    // Split the matched string into the two tracks of information
+                    String[] split = fullMatcher.group().split("\\?{1}");
+                    // Further split each track into constituent parts
+                    String[] track1 = split[0].split("\\^{1}");
+                    String[] track2 = split[1].split("={1}");
+                    // Check if both tracks have the same account number
+                    if(track1[0].substring(2).equals(track2[0].substring(1))){
+                        // Create a new CCinfo object with the information and add it to the ArrayList
+                        foundCCInfo.add(new CCinfo(
+                                track1[1].replace("/", " "),
+                                track1[0].substring(2),
+                                track1[2].substring(2, 4) + "/20" + track1[2].substring(0, 2),
+                                track1[2].substring(4, 7),
+                                track2[1].substring(7, 11),
+                                track2[1].substring(11, 14)));
+                    }
+                }
                 // Check if the matchers found a string that satisfies the regex
-                if (track1Matcher.find()) {
+                /*if (track1Matcher.find()) {
                     // Parse the string into its constituent parts and create a new object to save it
                     String matchedString = track1Matcher.group();
                     String[] split = matchedString.split("\\^{1}");
@@ -41,7 +63,7 @@ public class Main {
                     String matchedString = track2Matcher.group();
                     String[] split = matchedString.split("\\={1}");
                     foundTrack2Info.add(new Track2Info(split[0].substring(1), split[1].substring(0, 4), split[1].substring(4, 7), split[1].substring(7, 11), split[1].substring(11, 14)));
-                }
+                }*/
                 // Used to print each line out for testing regex in IntelliJ console
                 //System.out.println(str);
             }
@@ -57,7 +79,7 @@ public class Main {
         }
 
         // Keep track of how many matches are found between Track 1 and Track 2 objects
-        int count = 0;
+        /*int count = 0;
         Iterator iter1 = foundTrack1Info.iterator();
         boolean foundMatch = false;
 
@@ -75,19 +97,19 @@ public class Main {
                     foundCCInfo.add(new CCinfo(temp1.getName(), temp1.getCcNumber(), temp1.getExpDate(), temp1.getServiceCode(), temp2.getPin(), temp2.getCvvNumber()));
                     count++;
                     // TODO: Need to remove the matched tracks from info to avoid duplicates, this code produces runtime error currently
-                    /*foundMatch = true;
+                    foundMatch = true;
                     foundTrack1Info.remove(temp1);
-                    foundTrack2Info.remove(temp2);*/
+                    foundTrack2Info.remove(temp2);
                 }
             }
-        }
+        }*/
         // Print out any results found in the memory dump
-        System.out.printf("There are %d pieces of credit card information in the memory data!%n%n", count);
-        Iterator iter3 = foundCCInfo.iterator();
+        System.out.printf("There are %d pieces of credit card information in the memory data!%n%n", foundCCInfo.size());
+        Iterator iterator = foundCCInfo.iterator();
         int i = 1;
-        while (iter3.hasNext()) {
+        while (iterator.hasNext()) {
             System.out.printf("<Information of the %s credit card>:%n", getOrdinal(i));
-            CCinfo temp = (CCinfo) iter3.next();
+            CCinfo temp = (CCinfo) iterator.next();
             temp.printCCinfo();
             i++;
         }
@@ -107,4 +129,3 @@ public class Main {
         }
     }
 }
-
