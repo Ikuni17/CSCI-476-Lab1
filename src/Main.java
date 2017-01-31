@@ -1,3 +1,9 @@
+/*
+Bradley White and Isaac Sotelo
+CSCI 476: Lab 1
+January 30, 2017
+*/
+
 import java.io.*;
 import java.util.*;
 import java.util.regex.Matcher;

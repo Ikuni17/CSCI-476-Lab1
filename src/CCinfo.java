@@ -1,3 +1,9 @@
+/*
+Bradley White and Isaac Sotelo
+CSCI 476: Lab 1
+January 30, 2017
+*/
+
 public class CCinfo {
     String name, ccNumber, expDate, serviceCode, pin, cvvNumber;
 
