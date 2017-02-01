@@ -11,17 +11,19 @@ import java.util.regex.Pattern;
 
 public class Main {
 
-    // Assume the memory dump file is in the same directory as this main file
+    // Relative path to the memory dump file
     static String dumpPath = "./memorydump.dmp";
     static List<CCinfo> foundCCInfo = new ArrayList<>();
+    // Regular Expression to match track 1 and track 2 data that is adjacent
     static Pattern fullPattern = Pattern.compile("%[A-Z]\\d{13,19}\\^{1}\\w{1,26}\\/\\w{1,26}\\^{1}\\d{7,}\\?;\\d{13,19}={1}\\d{14,}\\?");
     static Matcher fullMatcher;
 
     public static void main(String[] args) throws IOException {
         try {
             // Open the memory dump file with the correct encoding
-            File fileDir = new File(dumpPath);
-            BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(fileDir), "UTF8"));
+            File dumpFile = new File(dumpPath);
+            // Use a buffered reader with the correct encoding to read the memory dump
+            BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(dumpFile), "UTF8"));
             String str;
 
             // Read each line until end of file
@@ -64,12 +66,12 @@ public class Main {
         // Print out any results found in the memory dump
         System.out.printf("There are %d pieces of credit card information in the memory data!%n%n", foundCCInfo.size());
         Iterator iterator = foundCCInfo.iterator();
-        int i = 1;
+        int count = 1;
         while (iterator.hasNext()) {
-            System.out.printf("<Information of the %s credit card>:%n", getOrdinal(i));
+            System.out.printf("<Information of the %s credit card>:%n", getOrdinal(count));
             CCinfo temp = (CCinfo) iterator.next();
             temp.printCCinfo();
-            i++;
+            count++;
         }
 
     }
